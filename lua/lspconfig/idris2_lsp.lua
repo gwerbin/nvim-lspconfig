@@ -5,7 +5,9 @@ configs.idris2_lsp = {
   default_config = {
     cmd = { 'idris2-lsp' },
     filetypes = { 'idris2' },
-    root_dir = util.root_pattern '*.ipkg',
+    root_dir = function(fname)
+      return util.root_pattern('*.ipkg') or util.find_git_ancestor(fname) or util.path.dirname(fname)
+    end,
   },
   docs = {
     description = [[
